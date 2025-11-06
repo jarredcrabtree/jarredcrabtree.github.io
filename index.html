@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crazy Button</title>
+<style>
+  body {
+    background: radial-gradient(circle, #111, #000);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    color: white;
+  }
+
+  button {
+    background: linear-gradient(45deg, #ff0080, #ff8c00, #40e0d0);
+    border: none;
+    border-radius: 20px;
+    padding: 20px 40px;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 20px #ff0080;
+    transition: transform 0.2s ease;
+  }
+
+  button:hover {
+    transform: scale(1.1);
+  }
+
+  @keyframes crazy {
+    0% { transform: rotate(0deg) scale(1); background: #ff0080; }
+    25% { transform: rotate(360deg) scale(1.2); background: #40e0d0; }
+    50% { transform: rotate(-360deg) scale(0.8); background: #ff8c00; }
+    75% { transform: rotate(720deg) scale(1.5); background: #00ff80; }
+    100% { transform: rotate(0deg) scale(1); background: #ff0080; }
+  }
+
+  @keyframes flash {
+    0%, 100% { background: #111; }
+    50% { background: #fff; }
+  }
+
+  #message {
+    position: absolute;
+    font-size: 3rem;
+    opacity: 0;
+    transform: scale(0);
+    text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff;
+    transition: all 1s ease;
+  }
+
+  #message.show {
+    opacity: 1;
+    transform: scale(1);
+    animation: flash 0.5s infinite alternate;
+  }
+</style>
+</head>
+<body>
+
+<button id="crazyButton">Click Me!</button>
+<div id="message">Austin is diddy</div>
+
+<script>
+  const button = document.getElementById('crazyButton');
+  const message = document.getElementById('message');
+
+  button.addEventListener('click', () => {
+    button.style.animation = 'crazy 2s ease-in-out infinite';
+    setTimeout(() => {
+      button.style.display = 'none';
+      message.classList.add('show');
+    }, 2500);
+  });
+</script>
+
+</body>
+</html>

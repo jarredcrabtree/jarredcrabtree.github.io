@@ -1,83 +1,515 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crazy Button</title>
-<style>
-  body {
-    background: radial-gradient(circle, #111, #000);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    font-family: "Comic Sans MS", cursive, sans-serif;
-    color: white;
-  }
-
-  button {
-    background: linear-gradient(45deg, #ff0080, #ff8c00, #40e0d0);
-    border: none;
-    border-radius: 20px;
-    padding: 20px 40px;
-    font-size: 1.5rem;
-    color: white;
-    cursor: pointer;
-    box-shadow: 0 0 20px #ff0080;
-    transition: transform 0.2s ease;
-  }
-
-  button:hover {
-    transform: scale(1.1);
-  }
-
-  @keyframes crazy {
-    0% { transform: rotate(0deg) scale(1); background: #ff0080; }
-    25% { transform: rotate(360deg) scale(1.2); background: #40e0d0; }
-    50% { transform: rotate(-360deg) scale(0.8); background: #ff8c00; }
-    75% { transform: rotate(720deg) scale(1.5); background: #00ff80; }
-    100% { transform: rotate(0deg) scale(1); background: #ff0080; }
-  }
-
-  @keyframes flash {
-    0%, 100% { background: #111; }
-    50% { background: #fff; }
-  }
-
-  #message {
-    position: absolute;
-    font-size: 3rem;
-    opacity: 0;
-    transform: scale(0);
-    text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff;
-    transition: all 1s ease;
-  }
-
-  #message.show {
-    opacity: 1;
-    transform: scale(1);
-    animation: flash 0.5s infinite alternate;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jarred Crabtree | Waubra's One-Eyed Wonder</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap');
+        
+        :root {
+            --primary: #1a3c34;
+            --accent: #d4a017;
+            --dark: #0f1f1a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(to bottom, #f8f5f0, #e8e4d8);
+            overflow-x: hidden;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://picsum.photos/id/1015/1920/1080') center/cover no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            padding: 0 20px;
+            z-index: 2;
+        }
+        
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+        }
+        
+        .hero-content .subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+            font-weight: 500;
+        }
+        
+        .hero-content p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 14px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(212, 160, 23, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(212, 160, 23, 0.5);
+        }
+        
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 60, 52, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.3s;
+        }
+        
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        section {
+            padding: 100px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 60px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+            margin: 20px auto 0;
+        }
+        
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .profile-image-container {
+            position: relative;
+        }
+        
+        .profile-image {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            transition: transform 0.5s ease;
+        }
+        
+        .profile-image-container:hover .profile-image {
+            transform: scale(1.03);
+        }
+        
+        .overlay-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: rotate(-8deg);
+        }
+        
+        .bio-text {
+            font-size: 1.25rem;
+            line-height: 1.8;
+        }
+        
+        .bio-text p {
+            margin-bottom: 25px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            margin: 80px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.12);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            color: white;
+            padding: 30px 25px 25px;
+            font-size: 1.1rem;
+        }
+        
+        .quotes {
+            background: #fff;
+            padding: 80px 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .quote {
+            font-size: 1.35rem;
+            font-style: italic;
+            line-height: 1.7;
+            margin-bottom: 40px;
+            position: relative;
+            padding-left: 60px;
+        }
+        
+        .quote:before {
+            content: '“';
+            font-size: 120px;
+            position: absolute;
+            left: 0;
+            top: -40px;
+            color: var(--accent);
+            opacity: 0.2;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .quote-author {
+            font-weight: 500;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: #ddd;
+            text-align: center;
+            padding: 80px 40px 40px;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-content h2 {
+            color: var(--accent);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 3.2rem;
+            }
+            .profile-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            section {
+                padding: 80px 20px;
+            }
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40%, 70% { transform: translateX(-50%) translateY(15px); }
+        }
+    </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="#" class="logo">Jarred Crabtree</a>
+            <div class="nav-links">
+                <a href="#story">The Story</a>
+                <a href="#stats">Stats</a>
+                <a href="#moments">Moments</a>
+                <a href="#quotes">Quotes</a>
+            </div>
+        </div>
+    </nav>
 
-<button id="crazyButton">Click Me!</button>
-<div id="message">Austin is diddy</div>
+    <!-- Hero Header -->
+    <header>
+        <div class="hero-content">
+            <h1>Jarred Crabtree</h1>
+            <div class="subtitle">Waubra's One-Eyed Wonder</div>
+            <p>The remarkable footballer from Waubra who kicks goals and inspires with just one good eye.</p>
+            <a href="#story" class="cta-button">Meet the Legend →</a>
+        </div>
+        
+        <div class="scroll-indicator">↓</div>
+    </header>
 
-<script>
-  const button = document.getElementById('crazyButton');
-  const message = document.getElementById('message');
+    <!-- The Story Section -->
+    <section id="story">
+        <h2 class="section-title">The Story</h2>
+        
+        <div class="profile-grid">
+            <div class="profile-image-container">
+                <img src="/assets/1.png" alt="Jarred Crabtree in action" class="profile-image">
+                <div class="overlay-badge">One-Eyed Wonder</div>
+            </div>
+            
+            <div class="bio-text">
+                <p>Jarred Crabtree is a 23-year-old footballer from Waubra, Victoria, who has become a local legend despite losing sight in his right eye as an infant due to a cataract.</p>
+                <p>His left eye has shouldered the full workload for years and is now deteriorating, requiring glasses off the field and contact lenses during games. Yet this hasn't stopped him from excelling on the footy field.</p>
+                <p>In the 2018 season with the Waubra Emus in the Central Highlands Football League, Jarred kicked an impressive <strong>30 goals in just 12 games</strong> and earned selection to represent the league in the AFL Victoria Community Championships.</p>
+                <p>From early days with Noradjuha-Quantong and Minyip-Murtoa, through tougher times at Skipton, his move to Waubra marked a turning point. The club took a chance on him — and he has repaid that faith with brilliant football and sheer determination.</p>
+            </div>
+        </div>
+    </section>
 
-  button.addEventListener('click', () => {
-    button.style.animation = 'crazy 2s ease-in-out infinite';
-    setTimeout(() => {
-      button.style.display = 'none';
-      message.classList.add('show');
-    }, 2500);
-  });
-</script>
+    <!-- Stats Section -->
+    <section id="stats" style="background: #f8f5f0;">
+        <h2 class="section-title">On-Field Impact</h2>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">30</div>
+                <div class="stat-label">Goals in 12 Games (2018)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">1</div>
+                <div class="stat-label">Good Eye</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">CHFL</div>
+                <div class="stat-label">League Representative</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">Waubra Emus</div>
+                <div class="stat-label">Forward Star</div>
+            </div>
+        </div>
+        
+        <p style="text-align: center; font-size: 1.2rem; max-width: 700px; margin: 60px auto 0; color: #555;">
+            Despite challenges in wet, windy, or low-light conditions — and even running into opponents he couldn't see — Jarred's resilience and skill have made him a standout.
+        </p>
+    </section>
 
+    <!-- Gallery / Moments -->
+    <section id="moments">
+        <h2 class="section-title">Captured Moments</h2>
+        
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="/assets/2.png" alt="Jarred Crabtree playing for Waubra">
+                <div class="gallery-overlay">
+                    In full flight for the Emus
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="/assets/3.png" alt="Jarred Crabtree marking the ball">
+                <div class="gallery-overlay">
+                    Taking a strong mark
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="/assets/1.png" alt="Jarred Crabtree portrait">
+                <div class="gallery-overlay">
+                    The One-Eyed Wonder
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quotes Section -->
+    <section id="quotes" style="background: #f8f5f0;">
+        <div class="quotes">
+            <h2 class="section-title" style="margin-bottom: 60px;">In His Own Words</h2>
+            
+            <div class="quote">
+                “This year has definitely been the worst with my eyesight... I’m limited to what I can do at training, which is hard.”
+                <div class="quote-author">— Jarred Crabtree</div>
+            </div>
+            
+            <div class="quote">
+                “It was a big risk to come out to Waubra. They took a risk on me as well and I’m just happy that it’s paying off and I’m finally playing some decent footy.”
+                <div class="quote-author">— Jarred Crabtree on joining Waubra</div>
+            </div>
+            
+            <div class="quote">
+                “There’s like a 70-plus per cent risk that you get this infection that spreads to your other eye... I just thought that was too big of a risk.”
+                <div class="quote-author">— On declining eye surgery</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Call to Action / Footer -->
+    <footer>
+        <div class="footer-content">
+            <h2>Jarred Crabtree</h2>
+            <p style="margin: 30px 0 40px; font-size: 1.2rem;">
+                A true inspiration from Waubra — proving that heart, determination, and skill matter more than any limitation.
+            </p>
+            <p style="opacity: 0.7; font-size: 0.95rem;">
+                Inspired by the 2018 Courier article • "Meet Waubra’s one-eyed wonder"
+            </p>
+            <p style="margin-top: 60px; font-size: 0.9rem; opacity: 0.6;">
+                &copy; Tribute Page • Images in /assets/ folder (1.png, 2.png, 3.png)
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(26, 60, 52, 0.98)';
+                nav.style.padding = '12px 0';
+            } else {
+                nav.style.background = 'rgba(26, 60, 52, 0.95)';
+                nav.style.padding = '15px 0';
+            }
+        });
+
+        // Simple image load fallback message in console
+        console.log('%c✅ Jarred Crabtree Tribute Page Loaded Successfully\nPlace your images in /assets/1.png, /assets/2.png, and /assets/3.png', 'color: #1a3c34; font-family: monospace;');
+    </script>
 </body>
 </html>

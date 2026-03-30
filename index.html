@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jarred Crabtree | Waubra's One-Eyed Wonder</title>
+    <title id="page-title">Jarred Crabtree | Waubra's One-Eyed Wonder</title>
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap');
         
@@ -27,6 +28,90 @@
             overflow-x: hidden;
         }
         
+        /* LOCK OVERLAY */
+        #lock-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 31, 26, 0.97);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+        
+        .lock-box {
+            background: rgba(26, 60, 52, 0.95);
+            padding: 50px 45px;
+            border-radius: 24px;
+            text-align: center;
+            max-width: 440px;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.8);
+            border: 1px solid rgba(212, 160, 23, 0.2);
+        }
+        
+        .lock-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            margin-bottom: 12px;
+            color: var(--accent);
+        }
+        
+        .lock-box p {
+            font-size: 1.15rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        /* Password Mode */
+        #password-input {
+            width: 100%;
+            padding: 16px 24px;
+            margin: 20px 0;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.15rem;
+            text-align: center;
+            background: white;
+            color: #333;
+        }
+        
+        #unlock-btn {
+            background: var(--accent);
+            color: var(--dark);
+            border: none;
+            padding: 15px 55px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        #unlock-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(212, 160, 23, 0.5);
+        }
+        
+        /* Lockdown Mode */
+        .lockdown-icon {
+            font-size: 4.8rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .lockdown-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 25px;
+            display: inline-block;
+        }
+        
+        .error { color: #ff6b6b; margin-top: 15px; font-weight: 500; }
+
+        /* Original Styles */
         header {
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://picsum.photos/id/1015/1920/1080') center/cover no-repeat;
             height: 100vh;
@@ -75,11 +160,6 @@
             font-size: 1.1rem;
             transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(212, 160, 23, 0.4);
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(212, 160, 23, 0.5);
         }
         
         .nav {
@@ -243,7 +323,7 @@
         
         .gallery-item img {
             width: 100%;
-            height: 100%;
+            height: 320px;
             object-fit: cover;
             transition: transform 0.6s ease;
         }
@@ -315,82 +395,75 @@
             font-family: 'Playfair Display', serif;
         }
         
-        @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 3.2rem;
-            }
-            .profile-grid {
-                grid-template-columns: 1fr;
-                gap: 50px;
-            }
-            section {
-                padding: 80px 20px;
-            }
-        }
-        
         .scroll-indicator {
             position: absolute;
             bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
             animation: bounce 2s infinite;
+            font-size: 1.8rem;
         }
         
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
             40%, 70% { transform: translateX(-50%) translateY(15px); }
         }
+        
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 3.2rem; }
+            .profile-grid { grid-template-columns: 1fr; gap: 50px; }
+            section { padding: 80px 20px; }
+        }
     </style>
 </head>
 <body>
+
+    <!-- LOCK OVERLAY -->
+    <div id="lock-overlay">
+        <div class="lock-box" id="lock-content">
+            <!-- Dynamically filled by JavaScript -->
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-content">
-            <a href="#" class="logo">Jarred Crabtree</a>
-            <div class="nav-links">
-                <a href="#story">The Story</a>
-                <a href="#stats">Stats</a>
-                <a href="#moments">Moments</a>
-                <a href="#quotes">Quotes</a>
-            </div>
+            <a href="#" class="logo" id="logo-text">Jarred Crabtree</a>
+            <div class="nav-links" id="nav-links"></div>
         </div>
     </nav>
 
-    <!-- Hero Header -->
+    <!-- Hero -->
     <header>
         <div class="hero-content">
-            <h1>Jarred Crabtree</h1>
-            <div class="subtitle">Waubra's One-Eyed Wonder</div>
-            <p>The remarkable footballer from Waubra who kicks goals and inspires with just one good eye.</p>
+            <h1 id="hero-title">Jarred Crabtree</h1>
+            <div class="subtitle" id="hero-subtitle">Waubra's One-Eyed Wonder</div>
+            <p id="hero-description">The remarkable footballer from Waubra who kicks goals and inspires with just one good eye.</p>
             <a href="#story" class="cta-button">Meet the Legend →</a>
         </div>
-        
-        <div class="scroll-indicator">↓</div>
+        <div class="scroll-indicator" id="scroll-indicator">↓</div>
     </header>
 
-    <!-- The Story Section -->
+    <!-- The Story -->
     <section id="story">
         <h2 class="section-title">The Story</h2>
-        
         <div class="profile-grid">
             <div class="profile-image-container">
-                <img src="/assets/1.png" alt="Jarred Crabtree in action" class="profile-image">
+                <img src="https://picsum.photos/id/1015/800/600" alt="Jarred Crabtree in action" class="profile-image">
                 <div class="overlay-badge">One-Eyed Wonder</div>
             </div>
-            
             <div class="bio-text">
                 <p>Jarred Crabtree is a 23-year-old footballer from Waubra, Victoria, who has become a local legend despite losing sight in his right eye as an infant due to a cataract.</p>
                 <p>His left eye has shouldered the full workload for years and is now deteriorating, requiring glasses off the field and contact lenses during games. Yet this hasn't stopped him from excelling on the footy field.</p>
                 <p>In the 2018 season with the Waubra Emus in the Central Highlands Football League, Jarred kicked an impressive <strong>30 goals in just 12 games</strong> and earned selection to represent the league in the AFL Victoria Community Championships.</p>
-                <p>From early days with Noradjuha-Quantong and Minyip-Murtoa, through tougher times at Skipton, his move to Waubra marked a turning point. The club took a chance on him — and he has repaid that faith with brilliant football and sheer determination.</p>
+                <p>From early days with Noradjuha-Quantong and Minyip-Murtoa, through tougher times at Skipton, his move to Waubra marked a turning point.</p>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
+    <!-- Stats -->
     <section id="stats" style="background: #f8f5f0;">
         <h2 class="section-title">On-Field Impact</h2>
-        
         <div class="stats">
             <div class="stat-card">
                 <div class="stat-number">30</div>
@@ -409,107 +482,163 @@
                 <div class="stat-label">Forward Star</div>
             </div>
         </div>
-        
-        <p style="text-align: center; font-size: 1.2rem; max-width: 700px; margin: 60px auto 0; color: #555;">
-            Despite challenges in wet, windy, or low-light conditions — and even running into opponents he couldn't see — Jarred's resilience and skill have made him a standout.
-        </p>
     </section>
 
-    <!-- Gallery / Moments -->
+    <!-- Gallery -->
     <section id="moments">
         <h2 class="section-title">Captured Moments</h2>
-        
         <div class="gallery">
             <div class="gallery-item">
-                <img src="/assets/2.png" alt="Jarred Crabtree playing for Waubra">
-                <div class="gallery-overlay">
-                    In full flight for the Emus
-                </div>
+                <img src="https://picsum.photos/id/1015/800/600" alt="Jarred playing">
+                <div class="gallery-overlay">In full flight for the Emus</div>
             </div>
             <div class="gallery-item">
-                <img src="/assets/3.png" alt="Jarred Crabtree marking the ball">
-                <div class="gallery-overlay">
-                    Taking a strong mark
-                </div>
+                <img src="https://picsum.photos/id/237/800/600" alt="Marking the ball">
+                <div class="gallery-overlay">Taking a strong mark</div>
             </div>
             <div class="gallery-item">
-                <img src="/assets/1.png" alt="Jarred Crabtree portrait">
-                <div class="gallery-overlay">
-                    The One-Eyed Wonder
-                </div>
+                <img src="https://picsum.photos/id/201/800/600" alt="Portrait">
+                <div class="gallery-overlay">The One-Eyed Wonder</div>
             </div>
         </div>
     </section>
 
-    <!-- Quotes Section -->
+    <!-- Quotes -->
     <section id="quotes" style="background: #f8f5f0;">
         <div class="quotes">
             <h2 class="section-title" style="margin-bottom: 60px;">In His Own Words</h2>
-            
             <div class="quote">
                 “This year has definitely been the worst with my eyesight... I’m limited to what I can do at training, which is hard.”
                 <div class="quote-author">— Jarred Crabtree</div>
             </div>
-            
             <div class="quote">
-                “It was a big risk to come out to Waubra. They took a risk on me as well and I’m just happy that it’s paying off and I’m finally playing some decent footy.”
+                “It was a big risk to come out to Waubra. They took a risk on me as well and I’m just happy that it’s paying off.”
                 <div class="quote-author">— Jarred Crabtree on joining Waubra</div>
-            </div>
-            
-            <div class="quote">
-                “There’s like a 70-plus per cent risk that you get this infection that spreads to your other eye... I just thought that was too big of a risk.”
-                <div class="quote-author">— On declining eye surgery</div>
             </div>
         </div>
     </section>
 
-    <!-- Final Call to Action / Footer -->
+    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <h2>Jarred Crabtree</h2>
-            <p style="margin: 30px 0 40px; font-size: 1.2rem;">
-                A true inspiration from Waubra — proving that heart, determination, and skill matter more than any limitation.
-            </p>
-            <p style="opacity: 0.7; font-size: 0.95rem;">
-                Inspired by the 2018 Courier article • "Meet Waubra’s one-eyed wonder"
-            </p>
+            <p id="footer-quote" style="margin: 30px 0 40px; font-size: 1.2rem;"></p>
+            <p id="footer-credit" style="opacity: 0.7; font-size: 0.95rem;"></p>
             <p style="margin-top: 60px; font-size: 0.9rem; opacity: 0.6;">
-                &copy; Tribute Page • Images in /assets/ folder (1.png, 2.png, 3.png)
+                &copy; Tribute Page • Using placeholder images from picsum.photos
             </p>
         </div>
     </footer>
 
+    <!-- Config -->
+    <script src="config.js"></script>
+
+    <!-- Main Script -->
     <script>
-        // Smooth scrolling for nav links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                if (this.getAttribute('href') !== '#') {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
+        function applyConfig() {
+            const c = window.CONFIG || {};
+            
+            // Basic content
+            document.getElementById('page-title').textContent = c.siteTitle || "Jarred Crabtree Tribute";
+            document.getElementById('logo-text').textContent = c.heroTitle || "Jarred Crabtree";
+            document.getElementById('hero-title').textContent = c.heroTitle || "Jarred Crabtree";
+            document.getElementById('hero-subtitle').textContent = c.heroSubtitle || "Waubra's One-Eyed Wonder";
+            document.getElementById('hero-description').textContent = c.heroDescription || "Local football legend.";
+
+            // Colors
+            if (c.primaryColor) document.documentElement.style.setProperty('--primary', c.primaryColor);
+            if (c.accentColor) document.documentElement.style.setProperty('--accent', c.accentColor);
+            if (c.darkColor) document.documentElement.style.setProperty('--dark', c.darkColor);
+
+            // Navigation
+            const navContainer = document.getElementById('nav-links');
+            navContainer.innerHTML = '';
+            (c.navItems || []).forEach(item => {
+                const a = document.createElement('a');
+                a.href = item.href || "#";
+                a.textContent = item.text || "Link";
+                navContainer.appendChild(a);
+            });
+
+            // Footer
+            document.getElementById('footer-quote').textContent = c.footerQuote || "";
+            document.getElementById('footer-credit').innerHTML = c.footerCredit || "";
+            
+            // Scroll indicator
+            const scrollInd = document.getElementById('scroll-indicator');
+            if (scrollInd) scrollInd.style.display = c.showScrollIndicator !== false ? 'block' : 'none';
+        }
+
+        function initLock() {
+            const c = window.CONFIG || {};
+            if (!c.siteLocked) return;
+
+            const overlay = document.getElementById('lock-overlay');
+            const contentBox = document.getElementById('lock-content');
+            overlay.style.display = 'flex';
+
+            if (c.mode === "lockdown") {
+                // Lockdown Mode
+                contentBox.innerHTML = `
+                    <div class="lockdown-icon">🔒</div>
+                    <h2>Website Locked</h2>
+                    <p>This tribute page is currently locked by the administrator.</p>
+                    <p style="margin: 25px 0 15px;">Please contact the admin to request access.</p>
+                    <a href="#" class="lockdown-link" onclick="window.location.reload()">↻ Try Again</a>
+                `;
+            } else {
+                // Password Mode (default)
+                contentBox.innerHTML = `
+                    <h2>Protected Page</h2>
+                    <p>Enter password to view Jarred Crabtree's tribute</p>
+                    <input type="password" id="password-input" placeholder="Enter password">
+                    <button id="unlock-btn">Unlock</button>
+                    <div id="lock-error" class="error"></div>
+                `;
+
+                const input = document.getElementById('password-input');
+                const btn = document.getElementById('unlock-btn');
+                const error = document.getElementById('lock-error');
+
+                function unlock() {
+                    if (input.value === (c.password || "")) {
+                        overlay.style.transition = "opacity 0.6s ease";
+                        overlay.style.opacity = '0';
+                        setTimeout(() => { overlay.style.display = 'none'; }, 600);
+                    } else {
+                        error.textContent = "Incorrect password. Please try again.";
+                        input.value = '';
+                        setTimeout(() => error.textContent = '', 3000);
                     }
                 }
-            });
-        });
 
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('.nav');
-            if (window.scrollY > 100) {
-                nav.style.background = 'rgba(26, 60, 52, 0.98)';
-                nav.style.padding = '12px 0';
-            } else {
-                nav.style.background = 'rgba(26, 60, 52, 0.95)';
-                nav.style.padding = '15px 0';
+                btn.addEventListener('click', unlock);
+                input.addEventListener('keypress', e => {
+                    if (e.key === 'Enter') unlock();
+                });
+                setTimeout(() => input.focus(), 100);
             }
-        });
+        }
 
-        // Simple image load fallback message in console
-        console.log('%c✅ Jarred Crabtree Tribute Page Loaded Successfully\nPlace your images in /assets/1.png, /assets/2.png, and /assets/3.png', 'color: #1a3c34; font-family: monospace;');
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            applyConfig();
+            initLock();
+
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') !== '#') {
+                        e.preventDefault();
+                        document.querySelector(this.getAttribute('href')).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            console.log('%c✅ Jarred Crabtree Tribute Page loaded successfully!', 'color: #1a3c34; font-weight: bold;');
+        });
     </script>
 </body>
 </html>

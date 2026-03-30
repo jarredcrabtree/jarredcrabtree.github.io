@@ -4,426 +4,373 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">Jarred Crabtree | Waubra's One-Eyed Wonder</title>
-    
+   
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap');
-        
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap');
+
         :root {
             --primary: #1a3c34;
             --accent: #d4a017;
             --dark: #0f1f1a;
+            --light: #f8f5f0;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.75;
             color: #333;
-            background: linear-gradient(to bottom, #f8f5f0, #e8e4d8);
+            background: var(--light);
             overflow-x: hidden;
         }
-        
-        /* LOCK OVERLAY */
-        #lock-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(15, 31, 26, 0.97);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            color: white;
-            backdrop-filter: blur(10px);
-        }
-        
-        .lock-box {
-            background: rgba(26, 60, 52, 0.95);
-            padding: 50px 45px;
-            border-radius: 24px;
-            text-align: center;
-            max-width: 440px;
-            box-shadow: 0 30px 70px rgba(0,0,0,0.8);
-            border: 1px solid rgba(212, 160, 23, 0.2);
-        }
-        
-        .lock-box h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.4rem;
-            margin-bottom: 12px;
-            color: var(--accent);
-        }
-        
-        .lock-box p {
-            font-size: 1.15rem;
-            opacity: 0.9;
-            margin-bottom: 30px;
-        }
-        
-        /* Password Mode */
-        #password-input {
-            width: 100%;
-            padding: 16px 24px;
-            margin: 20px 0;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.15rem;
-            text-align: center;
-            background: white;
-            color: #333;
-        }
-        
-        #unlock-btn {
-            background: var(--accent);
-            color: var(--dark);
-            border: none;
-            padding: 15px 55px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        #unlock-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(212, 160, 23, 0.5);
-        }
-        
-        /* Lockdown Mode */
-        .lockdown-icon {
-            font-size: 4.8rem;
-            margin-bottom: 20px;
-            opacity: 0.9;
-        }
-        
-        .lockdown-link {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
-            margin-top: 25px;
-            display: inline-block;
-        }
-        
-        .error { color: #ff6b6b; margin-top: 15px; font-weight: 500; }
 
-        /* Original Styles */
-        header {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://picsum.photos/id/1015/1920/1080') center/cover no-repeat;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            position: relative;
-        }
-        
-        .hero-content {
-            max-width: 900px;
-            padding: 0 20px;
-            z-index: 2;
-        }
-        
-        .hero-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4.5rem;
-            margin-bottom: 10px;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
-        }
-        
-        .hero-content .subtitle {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--accent);
-            font-weight: 500;
-        }
-        
-        .hero-content p {
-            font-size: 1.3rem;
-            max-width: 600px;
-            margin: 0 auto 40px;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--dark);
-            padding: 14px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(212, 160, 23, 0.4);
-        }
-        
+        /* Navigation */
         .nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(26, 60, 52, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(15, 31, 26, 0.96);
+            backdrop-filter: blur(12px);
             z-index: 1000;
-            padding: 15px 0;
-            transition: all 0.3s;
+            padding: 18px 0;
+            transition: all 0.4s ease;
         }
-        
+
         .nav-content {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 40px;
         }
-        
+
         .logo {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             color: white;
             text-decoration: none;
             font-weight: 700;
+            letter-spacing: -0.5px;
         }
-        
+
         .nav-links a {
             color: white;
             text-decoration: none;
-            margin-left: 30px;
+            margin-left: 34px;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
         }
-        
+
         .nav-links a:hover {
             color: var(--accent);
         }
-        
-        section {
-            padding: 100px 0;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-left: 40px;
-            padding-right: 40px;
-        }
-        
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 60px;
+
+        /* Hero Section */
+        header {
+            height: 100vh;
+            min-height: 680px;
+            background: linear-gradient(rgba(0,0,0,0.68), rgba(0,0,0,0.78)), 
+                        url('https://picsum.photos/id/1015/1920/1080') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
+            color: white;
             position: relative;
         }
-        
+
+        .hero-content {
+            max-width: 840px;
+            padding: 0 20px;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.2rem, 8.5vw, 5.5rem);
+            line-height: 1.05;
+            margin-bottom: 18px;
+            text-shadow: 0 6px 35px rgba(0,0,0,0.85);
+        }
+
+        .subtitle {
+            font-size: 1.7rem;
+            color: var(--accent);
+            margin-bottom: 28px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+        }
+
+        .hero-content p {
+            font-size: 1.28rem;
+            max-width: 640px;
+            margin: 0 auto 48px;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 16px 52px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.12rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 12px 35px rgba(212, 160, 23, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 45px rgba(212, 160, 23, 0.55);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 55px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.1rem;
+            animation: gentleBounce 3s infinite ease-in-out;
+            opacity: 0.75;
+            cursor: pointer;
+        }
+
+        @keyframes gentleBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(20px); }
+        }
+
+        /* Sections */
+        section {
+            padding: 120px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 85px;
+            position: relative;
+        }
+
         .section-title:after {
             content: '';
             display: block;
-            width: 80px;
-            height: 3px;
+            width: 75px;
+            height: 3.5px;
             background: var(--accent);
-            margin: 20px auto 0;
+            margin: 28px auto 0;
         }
-        
+
+        /* Profile Grid */
         .profile-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 80px;
+            gap: 95px;
             align-items: center;
         }
-        
+
         .profile-image-container {
             position: relative;
         }
-        
+
         .profile-image {
             width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
-            transition: transform 0.5s ease;
+            border-radius: 24px;
+            box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.4);
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         .profile-image-container:hover .profile-image {
-            transform: scale(1.03);
+            transform: scale(1.035);
         }
-        
+
         .overlay-badge {
             position: absolute;
-            bottom: -20px;
-            right: -20px;
+            bottom: -25px;
+            right: -25px;
             background: var(--accent);
             color: var(--dark);
-            padding: 15px 30px;
+            padding: 16px 36px;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 1.3rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            font-size: 1.28rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
             transform: rotate(-8deg);
+            white-space: nowrap;
         }
-        
+
         .bio-text {
-            font-size: 1.25rem;
-            line-height: 1.8;
+            font-size: 1.23rem;
+            line-height: 1.85;
         }
-        
+
         .bio-text p {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
-        
+
+        /* Stats */
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 30px;
-            margin: 80px 0;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 32px;
         }
-        
+
         .stat-card {
             background: white;
-            padding: 35px 25px;
-            border-radius: 16px;
+            padding: 45px 32px;
+            border-radius: 22px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 18px 45px rgba(0,0,0,0.09);
+            transition: all 0.4s ease;
         }
-        
+
         .stat-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-14px);
+            box-shadow: 0 28px 55px rgba(0,0,0,0.13);
         }
-        
+
         .stat-number {
-            font-size: 3.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
             font-weight: 700;
             color: var(--primary);
-            font-family: 'Playfair Display', serif;
+            line-height: 1;
         }
-        
+
         .stat-label {
-            font-size: 1.1rem;
-            color: #666;
-            margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-top: 14px;
+            font-size: 1.08rem;
+            color: #555;
+            font-weight: 500;
+            letter-spacing: 0.6px;
         }
-        
+
+        /* Gallery */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
         }
-        
+
         .gallery-item {
             position: relative;
             overflow: hidden;
-            border-radius: 16px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-radius: 22px;
+            box-shadow: 0 22px 50px rgba(0,0,0,0.12);
         }
-        
+
         .gallery-item img {
             width: 100%;
-            height: 320px;
+            height: 370px;
             object-fit: cover;
-            transition: transform 0.6s ease;
+            transition: transform 0.8s ease;
         }
-        
+
         .gallery-item:hover img {
-            transform: scale(1.12);
+            transform: scale(1.09);
         }
-        
+
         .gallery-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            background: linear-gradient(transparent, rgba(0,0,0,0.88));
             color: white;
-            padding: 30px 25px 25px;
-            font-size: 1.1rem;
+            padding: 38px 30px 30px;
+            font-size: 1.18rem;
+            font-weight: 500;
         }
-        
+
+        /* Quotes */
         .quotes {
-            background: #fff;
-            padding: 80px 40px;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            max-width: 900px;
+            background: white;
+            padding: 95px 70px;
+            border-radius: 28px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.1);
+            max-width: 940px;
             margin: 0 auto;
         }
-        
+
         .quote {
-            font-size: 1.35rem;
+            font-size: 1.42rem;
             font-style: italic;
-            line-height: 1.7;
-            margin-bottom: 40px;
+            line-height: 1.78;
+            margin-bottom: 55px;
             position: relative;
-            padding-left: 60px;
+            padding-left: 75px;
         }
-        
+
         .quote:before {
             content: '“';
-            font-size: 120px;
+            font-size: 150px;
             position: absolute;
             left: 0;
-            top: -40px;
+            top: -55px;
             color: var(--accent);
-            opacity: 0.2;
+            opacity: 0.13;
             font-family: 'Playfair Display', serif;
+            line-height: 1;
         }
-        
+
         .quote-author {
-            font-weight: 500;
+            font-weight: 600;
             color: var(--primary);
-            font-size: 1.1rem;
+            margin-top: 25px;
+            font-size: 1.12rem;
         }
-        
+
+        /* Footer */
         footer {
             background: var(--dark);
-            color: #ddd;
+            color: #ccc;
             text-align: center;
-            padding: 80px 40px 40px;
+            padding: 110px 40px 70px;
         }
-        
-        .footer-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
+
         .footer-content h2 {
             color: var(--accent);
             font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            margin-bottom: 24px;
         }
-        
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-            font-size: 1.8rem;
+
+        .footer-content p {
+            max-width: 720px;
+            margin: 0 auto;
         }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40%, 70% { transform: translateX(-50%) translateY(15px); }
-        }
-        
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .hero-content h1 { font-size: 3.2rem; }
-            .profile-grid { grid-template-columns: 1fr; gap: 50px; }
-            section { padding: 80px 20px; }
+            section { padding: 90px 24px; }
+            .profile-grid { 
+                grid-template-columns: 1fr; 
+                gap: 65px; 
+            }
+            .nav-content { padding: 0 24px; }
+            .nav-links a { 
+                margin-left: 20px; 
+                font-size: 0.97rem; 
+            }
+            .hero-content h1 { font-size: 3.4rem; }
+            .quotes { padding: 70px 40px; }
         }
     </style>
 </head>
 <body>
-
-    <!-- LOCK OVERLAY -->
-    <div id="lock-overlay">
-        <div class="lock-box" id="lock-content">
-            <!-- Dynamically filled by JavaScript -->
-        </div>
-    </div>
 
     <!-- Navigation -->
     <nav class="nav">
@@ -438,25 +385,24 @@
         <div class="hero-content">
             <h1 id="hero-title">Jarred Crabtree</h1>
             <div class="subtitle" id="hero-subtitle">Waubra's One-Eyed Wonder</div>
-            <p id="hero-description">The remarkable footballer from Waubra who kicks goals and inspires with just one good eye.</p>
-            <a href="#story" class="cta-button">Meet the Legend →</a>
+            <p id="hero-description">The inspiring footballer from Waubra who overcomes every challenge with skill, heart, and unwavering determination.</p>
+            <a href="#story" class="cta-button">Meet the Legend</a>
         </div>
-        <div class="scroll-indicator" id="scroll-indicator">↓</div>
+        <div class="scroll-indicator">↓</div>
     </header>
 
     <!-- The Story -->
     <section id="story">
-        <h2 class="section-title">The Story</h2>
+        <h2 class="section-title">His Story</h2>
         <div class="profile-grid">
             <div class="profile-image-container">
-                <img src="https://picsum.photos/id/1015/800/600" alt="Jarred Crabtree in action" class="profile-image">
+                <img src="https://picsum.photos/id/1015/800/620" alt="Jarred Crabtree playing football" class="profile-image">
                 <div class="overlay-badge">One-Eyed Wonder</div>
             </div>
             <div class="bio-text">
                 <p>Jarred Crabtree is a 23-year-old footballer from Waubra, Victoria, who has become a local legend despite losing sight in his right eye as an infant due to a cataract.</p>
-                <p>His left eye has shouldered the full workload for years and is now deteriorating, requiring glasses off the field and contact lenses during games. Yet this hasn't stopped him from excelling on the footy field.</p>
+                <p>His left eye has shouldered the full workload for years and continues to deteriorate, requiring glasses off the field and contact lenses during games. Yet this has never stopped him from excelling on the footy field.</p>
                 <p>In the 2018 season with the Waubra Emus in the Central Highlands Football League, Jarred kicked an impressive <strong>30 goals in just 12 games</strong> and earned selection to represent the league in the AFL Victoria Community Championships.</p>
-                <p>From early days with Noradjuha-Quantong and Minyip-Murtoa, through tougher times at Skipton, his move to Waubra marked a turning point.</p>
             </div>
         </div>
     </section>
@@ -489,15 +435,15 @@
         <h2 class="section-title">Captured Moments</h2>
         <div class="gallery">
             <div class="gallery-item">
-                <img src="https://picsum.photos/id/1015/800/600" alt="Jarred playing">
+                <img src="https://picsum.photos/id/1015/800/620" alt="Jarred in action">
                 <div class="gallery-overlay">In full flight for the Emus</div>
             </div>
             <div class="gallery-item">
-                <img src="https://picsum.photos/id/237/800/600" alt="Marking the ball">
+                <img src="https://picsum.photos/id/237/800/620" alt="Taking a mark">
                 <div class="gallery-overlay">Taking a strong mark</div>
             </div>
             <div class="gallery-item">
-                <img src="https://picsum.photos/id/201/800/600" alt="Portrait">
+                <img src="https://picsum.photos/id/201/800/620" alt="Portrait of Jarred">
                 <div class="gallery-overlay">The One-Eyed Wonder</div>
             </div>
         </div>
@@ -506,11 +452,13 @@
     <!-- Quotes -->
     <section id="quotes" style="background: #f8f5f0;">
         <div class="quotes">
-            <h2 class="section-title" style="margin-bottom: 60px;">In His Own Words</h2>
+            <h2 class="section-title" style="margin-bottom: 75px;">In His Own Words</h2>
+            
             <div class="quote">
                 “This year has definitely been the worst with my eyesight... I’m limited to what I can do at training, which is hard.”
                 <div class="quote-author">— Jarred Crabtree</div>
             </div>
+            
             <div class="quote">
                 “It was a big risk to come out to Waubra. They took a risk on me as well and I’m just happy that it’s paying off.”
                 <div class="quote-author">— Jarred Crabtree on joining Waubra</div>
@@ -521,36 +469,37 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <h2>Jarred Crabtree</h2>
-            <p id="footer-quote" style="margin: 30px 0 40px; font-size: 1.2rem;"></p>
-            <p id="footer-credit" style="opacity: 0.7; font-size: 0.95rem;"></p>
-            <p style="margin-top: 60px; font-size: 0.9rem; opacity: 0.6;">
-                &copy; Tribute Page • Using placeholder images from picsum.photos
+            <h2 id="footer-name">Jarred Crabtree</h2>
+            <p id="footer-quote" style="margin: 35px 0 55px; font-size: 1.25rem;"></p>
+            <p id="footer-credit" style="opacity: 0.75; font-size: 1.05rem;"></p>
+            
+            <p style="margin-top: 90px; font-size: 0.92rem; opacity: 0.5;">
+                &copy; Tribute Page • Dedicated to Jarred Crabtree
             </p>
         </div>
     </footer>
 
-    <!-- Config -->
+    <!-- Config Script -->
     <script src="config.js"></script>
 
-    <!-- Main Script -->
     <script>
         function applyConfig() {
             const c = window.CONFIG || {};
-            
-            // Basic content
-            document.getElementById('page-title').textContent = c.siteTitle || "Jarred Crabtree Tribute";
+
+            // Update titles and text
+            document.getElementById('page-title').textContent = c.siteTitle || "Jarred Crabtree | Waubra's One-Eyed Wonder";
             document.getElementById('logo-text').textContent = c.heroTitle || "Jarred Crabtree";
             document.getElementById('hero-title').textContent = c.heroTitle || "Jarred Crabtree";
             document.getElementById('hero-subtitle').textContent = c.heroSubtitle || "Waubra's One-Eyed Wonder";
-            document.getElementById('hero-description').textContent = c.heroDescription || "Local football legend.";
+            document.getElementById('hero-description').textContent = c.heroDescription || 
+                "The inspiring footballer from Waubra who overcomes every challenge with skill, heart, and determination.";
 
             // Colors
             if (c.primaryColor) document.documentElement.style.setProperty('--primary', c.primaryColor);
             if (c.accentColor) document.documentElement.style.setProperty('--accent', c.accentColor);
             if (c.darkColor) document.documentElement.style.setProperty('--dark', c.darkColor);
 
-            // Navigation
+            // Navigation links
             const navContainer = document.getElementById('nav-links');
             navContainer.innerHTML = '';
             (c.navItems || []).forEach(item => {
@@ -560,64 +509,17 @@
                 navContainer.appendChild(a);
             });
 
-            // Footer
-            document.getElementById('footer-quote').textContent = c.footerQuote || "";
-            document.getElementById('footer-credit').innerHTML = c.footerCredit || "";
-            
-            // Scroll indicator
-            const scrollInd = document.getElementById('scroll-indicator');
-            if (scrollInd) scrollInd.style.display = c.showScrollIndicator !== false ? 'block' : 'none';
+            // Footer content
+            if (c.footerQuote) document.getElementById('footer-quote').textContent = c.footerQuote;
+            if (c.footerCredit) document.getElementById('footer-credit').innerHTML = c.footerCredit;
         }
 
+        // Lock function (kept simple - you can expand if needed)
         function initLock() {
             const c = window.CONFIG || {};
             if (!c.siteLocked) return;
-
-            const overlay = document.getElementById('lock-overlay');
-            const contentBox = document.getElementById('lock-content');
-            overlay.style.display = 'flex';
-
-            if (c.mode === "lockdown") {
-                // Lockdown Mode
-                contentBox.innerHTML = `
-                    <div class="lockdown-icon">🔒</div>
-                    <h2>Website Locked</h2>
-                    <p>This tribute page is currently locked by the administrator.</p>
-                    <p style="margin: 25px 0 15px;">Please contact the admin to request access.</p>
-                    <a href="#" class="lockdown-link" onclick="window.location.reload()">↻ Try Again</a>
-                `;
-            } else {
-                // Password Mode (default)
-                contentBox.innerHTML = `
-                    <h2>Protected Page</h2>
-                    <p>Enter password to view Jarred Crabtree's tribute</p>
-                    <input type="password" id="password-input" placeholder="Enter password">
-                    <button id="unlock-btn">Unlock</button>
-                    <div id="lock-error" class="error"></div>
-                `;
-
-                const input = document.getElementById('password-input');
-                const btn = document.getElementById('unlock-btn');
-                const error = document.getElementById('lock-error');
-
-                function unlock() {
-                    if (input.value === (c.password || "")) {
-                        overlay.style.transition = "opacity 0.6s ease";
-                        overlay.style.opacity = '0';
-                        setTimeout(() => { overlay.style.display = 'none'; }, 600);
-                    } else {
-                        error.textContent = "Incorrect password. Please try again.";
-                        input.value = '';
-                        setTimeout(() => error.textContent = '', 3000);
-                    }
-                }
-
-                btn.addEventListener('click', unlock);
-                input.addEventListener('keypress', e => {
-                    if (e.key === 'Enter') unlock();
-                });
-                setTimeout(() => input.focus(), 100);
-            }
+            alert("This page is currently locked by the administrator.");
+            // You can replace this with your full lock overlay logic if desired
         }
 
         // Initialize everything
@@ -625,19 +527,23 @@
             applyConfig();
             initLock();
 
-            // Smooth scrolling
+            // Smooth scrolling for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     if (this.getAttribute('href') !== '#') {
                         e.preventDefault();
-                        document.querySelector(this.getAttribute('href')).scrollIntoView({
-                            behavior: 'smooth'
-                        });
+                        const target = document.querySelector(this.getAttribute('href'));
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
                     }
                 });
             });
 
-            console.log('%c✅ Jarred Crabtree Tribute Page loaded successfully!', 'color: #1a3c34; font-weight: bold;');
+            console.log('%c✅ Jarred Crabtree Tribute Page loaded successfully!', 
+                'color: #1a3c34; font-weight: bold; font-size: 14px;');
         });
     </script>
 </body>
